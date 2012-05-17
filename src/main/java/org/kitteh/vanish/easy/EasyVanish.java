@@ -47,15 +47,11 @@ public class EasyVanish extends JavaPlugin {
                 list.append("Vanished (");
                 list.append(this.vanished.size());
                 list.append("): ");
-                boolean first = true;
                 for (final String name : this.vanished) {
-                    if (!first) {
-                        list.append(" ,");
-                    } else {
-                        first = true;
-                    }
                     list.append(name);
+                    list.append(" ,");
                 }
+                list.setLength(list.length() - 2);
                 sender.sendMessage(list.toString());
             }
         }
