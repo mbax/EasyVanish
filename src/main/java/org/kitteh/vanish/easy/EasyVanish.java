@@ -7,13 +7,23 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class EasyVanish extends JavaPlugin {
+public class EasyVanish extends JavaPlugin implements Listener {
     private final HashSet<String> vanished = new HashSet<String>();
     private final String vanishPerm = "vanish.vanish";
+
+    @Override
+    public void onEnable() {
+        this.getServer().getPluginManager().registerEvents(this, this);
+        try {
+            new Metrics(this).start();
+        } catch (final Exception e) {
+        }
+    }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -29,6 +39,7 @@ public class EasyVanish extends JavaPlugin {
                 this.vanished.remove(sender.getName());
                 bit = "unvanished";
             } else {
+                this.vanished.add(sender.getName());
                 bit = "vanished";
             }
             final Player player = (Player) sender;
@@ -40,6 +51,18 @@ public class EasyVanish extends JavaPlugin {
                 }
             }
             this.getServer().broadcast(ChatColor.AQUA + player.getName() + " has " + bit, this.vanishPerm);
+        } else if (args[0].equalsIgnoreCase("list")) {
+            final StringBuilder list = new StringBuilder();
+            list.append(ChatColor.AQUA);
+            list.append("Vanished (");
+            list.append(this.vanished.size());
+            list.append("): ");
+            for (final String name : this.vanished) {
+                list.append(name);
+                list.append(" ,");
+            }
+            list.setLength(list.length() - 2);
+            sender.sendMessage(list.toString());
         }
         return true;
     }
