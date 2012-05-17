@@ -40,6 +40,24 @@ public class EasyVanish extends JavaPlugin {
                 }
             }
             this.getServer().broadcast(ChatColor.AQUA + player.getName() + " has " + bit, this.vanishPerm);
+        } else {
+            if (args[0].equalsIgnoreCase("list")) {
+                final StringBuilder list = new StringBuilder();
+                list.append(ChatColor.AQUA);
+                list.append("Vanished (");
+                list.append(this.vanished.size());
+                list.append("): ");
+                boolean first = true;
+                for (final String name : this.vanished) {
+                    if (!first) {
+                        list.append(" ,");
+                    } else {
+                        first = true;
+                    }
+                    list.append(name);
+                }
+                sender.sendMessage(list.toString());
+            }
         }
         return true;
     }
