@@ -1,0 +1,71 @@
+package org.kitteh.vanish.easy;
+
+import java.util.HashSet;
+
+import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.plugin.java.JavaPlugin;
+
+public class EasyVanish extends JavaPlugin {
+    private final HashSet<String> vanished = new HashSet<String>();
+    private final String vanishPerm = "vanish.vanish";
+
+    @Override
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (!(sender instanceof Player)) {
+            sender.sendMessage("Can't vanish if not a player!");
+            return true;
+        }
+        if (args.length == 0) {
+            boolean vanishing = true;
+            String bit;
+            if (this.vanished.contains(sender.getName())) {
+                vanishing = false;
+                this.vanished.remove(sender.getName());
+                bit = "unvanished";
+            } else {
+                bit = "vanished";
+            }
+            final Player player = (Player) sender;
+            for (final Player plr : this.getServer().getOnlinePlayers()) {
+                if (vanishing && !plr.hasPermission(this.vanishPerm)) {
+                    plr.hidePlayer(player);
+                } else if (!vanishing && plr.canSee(player)) {
+                    plr.showPlayer(player);
+                }
+            }
+            this.getServer().broadcast(ChatColor.AQUA + player.getName() + " has " + bit, this.vanishPerm);
+        }
+        return true;
+    }
+
+    @EventHandler
+    public void onJoin(PlayerJoinEvent event) {
+        if (!event.getPlayer().hasPermission(this.vanishPerm) && (this.vanished.size() > 0)) {
+            final Player player = event.getPlayer();
+            for (final Player plr : this.getServer().getOnlinePlayers()) {
+                if (this.vanished.contains(plr.getName())) {
+                    player.hidePlayer(plr);
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onQuit(PlayerQuitEvent event) {
+        if (this.vanished.contains(event.getPlayer().getName())) {
+            final Player player = event.getPlayer();
+            this.vanished.remove(event.getPlayer().getName());
+            for (final Player plr : this.getServer().getOnlinePlayers()) {
+                if ((plr != null) && !plr.canSee(event.getPlayer())) {
+                    plr.showPlayer(player);
+                }
+            }
+        }
+    }
+}

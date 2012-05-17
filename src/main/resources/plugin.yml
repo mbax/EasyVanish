@@ -1,0 +1,17 @@
+name: EasyVanish
+main: org.kitteh.vanish.easy.EasyVansih
+description: ${project.description}
+author: mbaxter
+url: http://kitteh.org
+version: '${project.version}'
+commands:
+  vanish:
+    usage: /vanish
+    aliases: [b]
+    description: Vanish or unvanish
+    permission: vanish.vanish
+    permission-message: You may not vanish.
+permissions:
+  vanish.vanish:
+    description: Able to vanish and see vanished players
+    default: op
