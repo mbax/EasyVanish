@@ -1,5 +1,5 @@
 name: EasyVanish
-main: org.kitteh.vanish.easy.EasyVansih
+main: org.kitteh.vanish.easy.EasyVanish
 description: ${project.description}
 author: mbaxter
 url: http://kitteh.org
