@@ -4,7 +4,7 @@
 
     <groupId>org.kitteh</groupId>
     <artifactId>easyvanish</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
     <name>EasyVanish ${project.version}</name>
     <url>http://kitteh.org/</url>
     <description>Easy vanishing for simple solutions</description>

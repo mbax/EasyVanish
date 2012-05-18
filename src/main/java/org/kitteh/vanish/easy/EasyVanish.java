@@ -7,13 +7,23 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class EasyVanish extends JavaPlugin {
+public class EasyVanish extends JavaPlugin implements Listener {
     private final HashSet<String> vanished = new HashSet<String>();
     private final String vanishPerm = "vanish.vanish";
+    
+    @Override
+    public void onEnable() {
+        this.getServer().getPluginManager().registerEvents(this, this);
+        try {
+            new Metrics(this).start();
+        } catch (Exception e) {
+        }
+    }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
