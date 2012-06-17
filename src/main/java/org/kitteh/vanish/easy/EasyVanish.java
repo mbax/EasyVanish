@@ -46,7 +46,7 @@ public class EasyVanish extends JavaPlugin implements Listener {
             for (final Player plr : this.getServer().getOnlinePlayers()) {
                 if (vanishing && !plr.hasPermission(this.vanishPerm)) {
                     plr.hidePlayer(player);
-                } else if (!vanishing && plr.canSee(player)) {
+                } else if (!vanishing && !plr.canSee(player)) {
                     plr.showPlayer(player);
                 }
             }
@@ -59,7 +59,7 @@ public class EasyVanish extends JavaPlugin implements Listener {
             list.append("): ");
             for (final String name : this.vanished) {
                 list.append(name);
-                list.append(" ,");
+                list.append(", ");
             }
             list.setLength(list.length() - 2);
             sender.sendMessage(list.toString());
