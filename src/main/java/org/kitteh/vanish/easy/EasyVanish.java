@@ -14,7 +14,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class EasyVanish extends JavaPlugin implements Listener {
     private final HashSet<String> vanished = new HashSet<String>();
-    private final String vanishPerm = "vanish.vanish";
+    public static final String VANISH_PERM = "vanish.vanish";
 
     @Override
     public void onEnable() {
@@ -27,11 +27,11 @@ public class EasyVanish extends JavaPlugin implements Listener {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!(sender instanceof Player)) {
-            sender.sendMessage("Can't vanish if not a player!");
-            return true;
-        }
         if (args.length == 0) {
+            if (!(sender instanceof Player)) {
+                sender.sendMessage("Can't vanish if not a player!");
+                return true;
+            }
             boolean vanishing = true;
             String bit;
             if (this.vanished.contains(sender.getName())) {
@@ -44,13 +44,13 @@ public class EasyVanish extends JavaPlugin implements Listener {
             }
             final Player player = (Player) sender;
             for (final Player plr : this.getServer().getOnlinePlayers()) {
-                if (vanishing && !plr.hasPermission(this.vanishPerm)) {
+                if (vanishing && !plr.hasPermission(EasyVanish.VANISH_PERM)) {
                     plr.hidePlayer(player);
                 } else if (!vanishing && !plr.canSee(player)) {
                     plr.showPlayer(player);
                 }
             }
-            this.getServer().broadcast(ChatColor.AQUA + player.getName() + " has " + bit, this.vanishPerm);
+            this.getServer().broadcast(ChatColor.AQUA + player.getName() + " has " + bit, EasyVanish.VANISH_PERM);
         } else if (args[0].equalsIgnoreCase("list")) {
             final StringBuilder list = new StringBuilder();
             list.append(ChatColor.AQUA);
@@ -69,7 +69,7 @@ public class EasyVanish extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
-        if (!event.getPlayer().hasPermission(this.vanishPerm) && (this.vanished.size() > 0)) {
+        if (!event.getPlayer().hasPermission(EasyVanish.VANISH_PERM) && (this.vanished.size() > 0)) {
             final Player player = event.getPlayer();
             for (final Player plr : this.getServer().getOnlinePlayers()) {
                 if (this.vanished.contains(plr.getName())) {
