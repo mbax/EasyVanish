@@ -7,7 +7,7 @@ version: '${project.version}'
 commands:
   vanish:
     usage: /vanish
-    aliases: [b]
+    aliases: v
     description: Vanish or unvanish
     permission: vanish.vanish
     permission-message: You may not vanish.
