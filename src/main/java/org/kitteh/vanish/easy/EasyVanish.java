@@ -19,6 +19,7 @@
 package org.kitteh.vanish.easy;
 
 import java.util.HashSet;
+import java.util.Set;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -31,7 +32,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class EasyVanish extends JavaPlugin implements Listener {
-    private final HashSet<String> vanished = new HashSet<String>();
+    private final Set<String> vanished = new HashSet<String>();
     private static final String VANISH_PERM = "vanish.vanish";
 
     @Override
