@@ -45,7 +45,6 @@
 
     <build>
         <defaultGoal>clean package</defaultGoal>
-        <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
         <finalName>EasyVanish</finalName>
         <resources>
             <resource>
