@@ -76,6 +76,13 @@ public final class EasyVanish extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         this.getServer().getPluginManager().registerEvents(this, this);
+        this.getLogger().info("===== BETWEEN THESE LINES IS AN INVISIBLE CAT =====");
+        this.getLogger().info("|                                                 |");
+        this.getLogger().info("|                                                 |");
+        this.getLogger().info("|                                                 |");
+        this.getLogger().info("|                                                 |");
+        this.getLogger().info("|                                                 |");
+        this.getLogger().info("===== BETWEEN THESE LINES IS AN INVISIBLE CAT =====");
     }
 
     @EventHandler
