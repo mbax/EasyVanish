@@ -17,11 +17,6 @@ public final class EasyVanish extends JavaPlugin implements Listener {
     private static final String VANISH_PERM = "vanish.vanish";
 
     @Override
-    public void onEnable() {
-        this.getServer().getPluginManager().registerEvents(this, this);
-    }
-
-    @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 0) {
             if (!(sender instanceof Player)) {
@@ -57,6 +52,11 @@ public final class EasyVanish extends JavaPlugin implements Listener {
             sender.sendMessage(list.toString());
         }
         return true;
+    }
+
+    @Override
+    public void onEnable() {
+        this.getServer().getPluginManager().registerEvents(this, this);
     }
 
     @EventHandler
