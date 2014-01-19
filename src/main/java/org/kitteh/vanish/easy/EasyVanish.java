@@ -28,15 +28,11 @@ public final class EasyVanish extends JavaPlugin implements Listener {
                 sender.sendMessage("Can't vanish if not a player!");
                 return true;
             }
-            boolean vanishing = true;
-            String bit;
-            if (this.vanished.contains(sender.getName())) {
-                vanishing = false;
+            final boolean vanishing = !this.vanished.contains(sender.getName());
+            if (!vanishing) {
                 this.vanished.remove(sender.getName());
-                bit = "unvanished";
             } else {
                 this.vanished.add(sender.getName());
-                bit = "vanished";
             }
             final Player player = (Player) sender;
             for (final Player plr : this.getServer().getOnlinePlayers()) {
@@ -46,7 +42,7 @@ public final class EasyVanish extends JavaPlugin implements Listener {
                     plr.showPlayer(player);
                 }
             }
-            this.getServer().broadcast(ChatColor.AQUA + player.getName() + " has " + bit, EasyVanish.VANISH_PERM);
+            this.getServer().broadcast(ChatColor.AQUA + player.getName() + " has " + (vanishing ? "vanished" : "unvanished"), EasyVanish.VANISH_PERM);
         } else if (args[0].equalsIgnoreCase("list")) {
             final StringBuilder list = new StringBuilder();
             list.append(ChatColor.AQUA);
