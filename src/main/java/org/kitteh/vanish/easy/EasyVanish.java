@@ -69,6 +69,8 @@ public final class EasyVanish extends JavaPlugin implements Listener {
             }
             list.setLength(list.length() - 2);
             sender.sendMessage(list.toString());
+        } else {
+            sender.sendMessage(ChatColor.AQUA + "Either " + ChatColor.WHITE + "/vanish " + ChatColor.AQUA + "or " + ChatColor.WHITE + "/vanish list");
         }
         return true;
     }
