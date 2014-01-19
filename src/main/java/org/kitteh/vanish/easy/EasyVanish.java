@@ -19,10 +19,6 @@ public class EasyVanish extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         this.getServer().getPluginManager().registerEvents(this, this);
-        try {
-            new Metrics(this).start();
-        } catch (final Exception e) {
-        }
     }
 
     @Override
