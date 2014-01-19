@@ -96,7 +96,7 @@ public final class EasyVanish extends JavaPlugin implements Listener {
             final Player player = event.getPlayer();
             this.vanished.remove(event.getPlayer().getName());
             for (final Player plr : this.getServer().getOnlinePlayers()) {
-                if ((plr != null) && !plr.canSee(event.getPlayer())) {
+                if (!plr.canSee(event.getPlayer())) {
                     plr.showPlayer(player);
                 }
             }
