@@ -14,7 +14,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class EasyVanish extends JavaPlugin implements Listener {
     private final HashSet<String> vanished = new HashSet<String>();
-    public static final String VANISH_PERM = "vanish.vanish";
+    private static final String VANISH_PERM = "vanish.vanish";
 
     @Override
     public void onEnable() {
